@@ -132,18 +132,18 @@ describe('Sofa\ModelLocking\Locking', function () {
     context('Fires broadcasting events to make push notifications a cinch', function () {
 
         it('fires event when model is being locked', function () {
-            expect($this->events)->toReceive('fire')->with(Arg::toEqual(new ModelLocked($this->post)));
+            expect($this->events)->toReceive('dispatch')->with(Arg::toEqual(new ModelLocked($this->post)));
             $this->post->lock();
         });
 
         it('fires event when model is being unlocked', function () {
-            expect($this->events)->toReceive('fire')->with(Arg::toEqual(new ModelUnlocked($this->post)));
+            expect($this->events)->toReceive('dispatch')->with(Arg::toEqual(new ModelUnlocked($this->post)));
             $this->post->unlock();
         });
 
         it('fires event when unlock request is made, with optional: requesting user and his message', function () {
             $this->lock->setRelation('model', $this->post);
-            expect($this->events)->toReceive('fire')->with(Arg::toEqual(
+            expect($this->events)->toReceive('dispatch')->with(Arg::toEqual(
                 new ModelUnlockRequested($this->post, 'requesting user', 'request message')
             ));
             $this->post->requestUnlock('requesting user', 'request message');

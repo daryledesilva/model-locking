@@ -72,7 +72,7 @@ public function requestUnlock(Post $post)
 }
 
 // app/Console/Kernel - it will remove expired locks
-//                      AND fire ModelUnlocked event for all of them
+//                      AND dispatch ModelUnlocked event for all of them
 $schedule->command('locks:flush')->everyMinute();
 
 
